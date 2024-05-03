@@ -17,7 +17,8 @@ namespace eTickets.Data.Services
 
         public void Add(Actor actor)
         {
-            throw new System.NotImplementedException();
+            _context.Add(actor);
+            _context.SaveChanges();
         }
 
         public void Delete(int id)
@@ -25,7 +26,7 @@ namespace eTickets.Data.Services
             throw new System.NotImplementedException();
         }
 
-        public  async Task<IEnumerable<Actor>> GetAllAsync()
+        public async Task<IEnumerable<Actor>> GetAllAsync()
         {
             var result = await _context.Actors.ToListAsync();
             return result;
