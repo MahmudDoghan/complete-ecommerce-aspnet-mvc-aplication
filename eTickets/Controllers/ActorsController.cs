@@ -11,16 +11,16 @@ namespace eTickets.Controllers
 {
     public class ActorsController : Controller
     {
-        private readonly IActorServices _services;
+        private readonly IActorServices _service;
 
-        public ActorsController(IActorServices services)
+        public ActorsController(IActorServices service)
         {
-            _services = services;
+            _service = service;
         }
 
         public async Task<IActionResult> Index()
         {
-            var data = await _services.GetAllAsync();
+            var data = await _service.GetAllAsync();
             return View(data);
         }
         //Get: Actors/Create
@@ -36,7 +36,54 @@ namespace eTickets.Controllers
             {
                 return View(actor);
             }
-            _services.Add(actor);
+            await _service.AddAsync(actor);
+            return RedirectToAction(nameof(Index));
+
+        }
+        //Get Actors/Detailis/1
+        public async Task<IActionResult> Details(int id)
+        {
+            var actordetails = await _service.GetByIdAsync(id);
+
+            if (actordetails == null) return View("NotFound");
+            return View(actordetails);
+        }
+
+        //Get: Actors/Edit/1
+        public async Task<IActionResult> Edit(int id)
+        {
+            var actordetails = await _service.GetByIdAsync(id);
+            if (actordetails == null) return View("NotFound");
+            return View(actordetails);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(int id, Actor actor)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(actor);
+            }
+            await _service.UpdateAsync(id ,actor);
+            return RedirectToAction(nameof(Index));
+
+        }
+
+        //Get: Actors/Delete/1
+        public async Task<IActionResult> Delete(int id)
+        {
+            var actordetails = await _service.GetByIdAsync(id);
+            if (actordetails == null) return View("NotFound");
+            return View(actordetails);
+        }
+
+        [HttpPost,ActionName("Delete")]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var actordetails = await _service.GetByIdAsync(id);
+            if (actordetails == null) return View("NotFound");
+
+            await _service.DeleteAsync(id);
             return RedirectToAction(nameof(Index));
 
         }
