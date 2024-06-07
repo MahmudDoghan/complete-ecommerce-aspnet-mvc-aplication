@@ -1,5 +1,5 @@
 ﻿using eTickets.Data.Base;
-using eTickets.Data.VıewModels;
+using eTickets.Data.ViewModels;
 using eTickets.Models;
 using System.Threading.Tasks;
 

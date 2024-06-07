@@ -1,6 +1,6 @@
 ﻿using eTickets.Data.Cart;
 
-namespace eTickets.Data.VıewModels
+namespace eTickets.Data.ViewModels
 {
     public class ShoppingCartVM
     {

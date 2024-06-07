@@ -1,7 +1,7 @@
 ﻿using eTickets.Models;
 using System.Collections.Generic;
 
-namespace eTickets.Data.VıewModels
+namespace eTickets.Data.ViewModels
 {
     public class NewMovieDropdownsVM
     {
